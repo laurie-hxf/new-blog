@@ -12,9 +12,10 @@ import SkillLayout from '@/components/home/SkillLayout.astro'
 import avatar from '@/assets/avatar.png'
 import config from '@/site-config'
 
-const languages = ['Html', 'JavaScript', 'CSS', 'Shell']
-const frontend = ['TypeScript', 'Vite', 'Webpack', 'Astro']
-const backend = ['Vercel', 'Waline']
+const Programming = ['Java', 'Python', 'C','C++', 'Shell','Pytorch']
+const Tools = ['Vim', 'Markdown', 'LaTeX','Git','Linux']
+const languages = ['Chinese', 'English']
+
 
 const MAX_POSTS = 10
 const allPosts = await getBlogCollection()
@@ -68,7 +69,10 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
       <Section title='About'>
         <p class='text-muted-foreground'>Debugger / CSer</p>
         <p class='text-muted-foreground'>
-          hi,i am laurie 
+          Hi there! 👋 I am laurie, a senior undergraduate student at the School of EECS, Sustech University, majoring in Computer Science.
+        </p>
+        <p class='text-muted-foreground'>
+        I am interesting in ai. I want to build digital person just like the film Swan Song.
         </p>
         <Button title='More about me' class='w-fit self-end' href='/about' style='ahead' />
       </Section>
@@ -119,10 +123,18 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
       <Section title='Education'>
         <Card
           as='a'
-          heading='SUSTECH'
+          heading='南方科技大学'
           subheading='Major:Computer Science'
-          date='August 2022 - July 2025'
-          href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+          date='August 2023 - July 2027'
+          href='https://www.sustech.edu.cn'
+        >
+        </Card>
+        <Card
+          as='a'
+          heading='石门中学'
+          subheading='Major:Physical Chemistry Biology'
+          date='August 2020 - Jun 2023'
+          href='https://www.shimen.org'
         >
           {
             /* <ul class='ms-4 list-disc text-muted-foreground'>
@@ -176,9 +188,9 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
       </Section>
 
       <Section title='Skills'>
-        <SkillLayout title='Languages' skills={languages} />
-        <SkillLayout title='Frontend' skills={frontend} />
-        <SkillLayout title='Backend' skills={backend} />
+        <SkillLayout title='languages' skills={languages} />
+        <SkillLayout title='Programming' skills={Programming} />
+        <SkillLayout title='Tools' skills={Tools} />
       </Section>
     </div>
     <Quote class='mt-12' />

@@ -15,23 +15,29 @@ const headings = [
 ---
 
 <PageLayout title='About' {headings} info='/about'>
-  <p>Developer / Designer</p>
+  <p>Student / CSer</p>
   <p>
-    hi i am laurie  /about
+    你好，我叫Laurie，专业写bug手
   </p>
-  <p>My motto: Stay hungry, Stay foolish. <Spoiler>你好</Spoiler></p>
+  <p>
+  我来自南方科技大学，天天不是在写 bug 就是在 debug，致力于研究人工智能
+  </p>
+  <p>
+  梦想用 ai 打造跟我一摸一样的数字人，这样我只用专注享受生活
+  </p>
+  <p>My motto: Everything is Just for fun <Spoiler>life is a movie</Spoiler></p>
   <Button title='Sponsor Me' class='w-fit' href='/projects#sponsorship' style='ahead' />
 
   {/* general-talk */}
   <h2 id='hobbies'>Hobbies</h2>
   <ul>
-    <li>Lorem ipsum dolor sit amet, vidit suscipit at mei.</li>
+    <li>I love watching movies, I will write down movie review each time i watch a movie. Welcome to become my movie buddy. </li>
     <li>
-      Quem denique mea id. Usu ei regione indoctum dissentiunt, cu meliore fuisset mei, vel quod
-      voluptua ne.
+    喜欢看github的粉丝数，因为这能满足我的虚荣心:D
     </li>
-    <li>Ex dicat impedit mel, at eum oratio possit voluptatum.</li>
-    <li>Impetus fuisset ullamcorper pri cu, his posse iisque ad, aliquam honestatis usu id.</li>
+    <li>
+    chorus！！！big fan of 上海彩虹室内合唱团
+    </li>
   </ul>
 
   {/* tools */}
@@ -48,21 +54,9 @@ const headings = [
         icon: import('@/assets/tools/photoshop.svg?raw')
       },
       {
-        name: 'Illustrator',
-        description: 'Vector Drawing',
-        href: 'https://www.adobe.com/products/illustrator',
-        icon: import('@/assets/tools/illustrator.svg?raw')
-      },
-      {
-        name: 'After Effects',
-        description: 'Motion Graphics',
-        href: 'https://www.adobe.com/products/aftereffects',
-        icon: import('@/assets/tools/aftereffects.svg?raw')
-      },
-      {
-        name: 'Premiere Pro',
-        description: 'Video Editing',
-        href: 'https://www.adobe.com/products/premiere',
+        name: 'excalidraw',
+        description: 'Drawing',
+        href: 'https://excalidraw.com',
         icon: import('@/assets/tools/premiere.svg?raw')
       }
     ]}
@@ -72,28 +66,22 @@ const headings = [
     title='Productivity'
     tools={[
       {
-        name: 'Chrome',
+        name: 'Safair',
         description: 'Broswer',
-        href: 'https://www.google.com/chrome/',
+        href: 'https://www.apple.com/sg/safari/',
         icon: import('@/assets/tools/chrome.svg?raw')
       },
       {
-        name: 'Firefox',
-        description: 'Broswer',
-        href: 'https://www.mozilla.org/en-US/firefox',
+        name: 'iTerm2',
+        description: 'terminal',
+        href: 'https://iterm2.com',
         icon: import('@/assets/tools/firefox.svg?raw')
       },
       {
-        name: 'Notion',
+        name: 'Obsidian',
         description: 'Note Taking',
-        href: 'https://www.notion.so/',
+        href: 'https://obsidian.md',
         icon: import('@/assets/tools/notion.svg?raw')
-      },
-      {
-        name: 'Typora',
-        description: 'Markdown Editor',
-        href: 'https://typora.io/',
-        icon: import('@/assets/tools/typora.svg?raw')
       }
     ]}
   />
@@ -108,15 +96,21 @@ const headings = [
         icon: import('@/assets/tools/vscode.svg?raw')
       },
       {
-        name: 'Neovim',
+        name: 'Pycharm',
         description: 'IDE',
-        href: 'https://neovim.io/',
+        href: 'https://www.jetbrains.com/pycharm/',
         icon: import('@/assets/tools/neovim.svg?raw')
       },
       {
-        name: 'Sublime Text',
+        name: 'Intellij IDEA',
         description: 'IDE',
-        href: 'https://www.sublimetext.com/',
+        href: 'https://www.jetbrains.com/idea/',
+        icon: import('@/assets/tools/neovim.svg?raw')
+      },
+      {
+        name: 'Clion',
+        description: 'IDE',
+        href: 'https://www.jetbrains.com/clion/',
         icon: import('@/assets/tools/sublime.svg?raw')
       }
     ]}
@@ -126,12 +120,6 @@ const headings = [
     title='Environment'
     tools={[
       {
-        name: 'Arch Linux',
-        description: 'Linux Distribution',
-        href: 'https://archlinux.org/',
-        icon: import('@/assets/tools/archlinux.svg?raw')
-      },
-      {
         name: 'Ubuntu 24.04 LTS',
         description: 'Linux Distribution',
         href: 'https://ubuntu.com/',
@@ -139,13 +127,13 @@ const headings = [
       },
       {
         name: 'MacOS Sonoma',
-        description: 'MacBook Air',
+        description: 'MacBook Pro m1',
         href: 'https://www.apple.com/macos/',
         icon: import('@/assets/tools/apple.svg?raw')
       },
       {
         name: 'Windows 11',
-        description: 'Rog Strix G15',
+        description: 'mecheruo Aurora Pro',
         href: 'https://news.microsoft.com/windows11-general-availability/',
         icon: import('@/assets/tools/windows11.svg?raw')
       }
@@ -155,41 +143,31 @@ const headings = [
   {/* social-networks */}
   <h2 id='social-networks'>Social Networks</h2>
   <p>
-    Lorem ipsum dolor sit amet, vidit suscipit at mei. Quem denique mea id. Usu ei regione indoctum
-    dissentiunt, cu meliore fuisset mei, vel quod voluptua ne.
+    Welcome to follow me on the following social networks!
   </p>
   <Substats
     stats={[
       {
         platform: 'GitHub',
         icon: 'github',
-        link: 'https://github.com/cworld1',
+        link: 'https://github.com/laurie-hxf',
         text: 'followers',
-        api: 'github/cworld1'
+        api: 'github/laurie-hxf'
       },
       {
-        platform: 'Telegram',
-        icon: 'telegram',
-        color: '#2ca5e0',
-        link: 'https://t.me/cworld0_cn',
-        text: 'subscribers',
-        api: 'telegram/cworld0_cn'
-      },
-      {
-        platform: 'Weibo',
-        icon: 'weibo',
-        color: '#e71f19',
-        link: 'https://weibo.com/cworld0',
+        platform: 'bilibili',
+        icon: 'bilibili',
+        link: 'https://space.bilibili.com/496875721?spm_id_from=333.337.0.0',
         text: 'followers',
-        api: 'weibo/5501674056'
+        api: 'bilibili/496875721'
       },
       {
         platform: 'Steam',
         icon: 'steam',
         color: '#50769d',
-        link: 'https://steamcommunity.com/id/cworld',
+        link: 'https://steamcommunity.com/id/1847238294',
         text: 'games',
-        api: 'steamgames/76561199021278120'
+        api: 'steamgames/76561199090041216'
       }
     ]}
   />
