@@ -36,7 +36,7 @@ const headings = [
     喜欢看github的粉丝数，因为这能满足我的虚荣心:D
     </li>
     <li>
-    chorus！！！big fan of 上海彩虹室内合唱团
+    chorus！！！big fan of <a href="https://rainbowsingers.cn" target="_blank">上海彩虹室内合唱团</a>
     </li>
   </ul>
 
@@ -57,7 +57,7 @@ const headings = [
         name: 'excalidraw',
         description: 'Drawing',
         href: 'https://excalidraw.com',
-        icon: import('@/assets/tools/premiere.svg?raw')
+        icon: import('@/assets/tools/excalidraw.svg?raw')
       }
     ]}
   />
@@ -69,19 +69,19 @@ const headings = [
         name: 'Safair',
         description: 'Broswer',
         href: 'https://www.apple.com/sg/safari/',
-        icon: import('@/assets/tools/chrome.svg?raw')
+        icon: import('@/assets/tools/safari.svg?raw')
       },
       {
         name: 'iTerm2',
         description: 'terminal',
         href: 'https://iterm2.com',
-        icon: import('@/assets/tools/firefox.svg?raw')
+        icon: import('@/assets/tools/iterm2.svg?raw')
       },
       {
         name: 'Obsidian',
         description: 'Note Taking',
         href: 'https://obsidian.md',
-        icon: import('@/assets/tools/notion.svg?raw')
+        icon: import('@/assets/tools/obsidian.svg?raw')
       }
     ]}
   />
@@ -99,19 +99,19 @@ const headings = [
         name: 'Pycharm',
         description: 'IDE',
         href: 'https://www.jetbrains.com/pycharm/',
-        icon: import('@/assets/tools/neovim.svg?raw')
+        icon: import('@/assets/tools/pycharm.svg?raw')
       },
       {
         name: 'Intellij IDEA',
         description: 'IDE',
         href: 'https://www.jetbrains.com/idea/',
-        icon: import('@/assets/tools/neovim.svg?raw')
+        icon: import('@/assets/tools/intellij-idea.svg?raw')
       },
       {
         name: 'Clion',
         description: 'IDE',
         href: 'https://www.jetbrains.com/clion/',
-        icon: import('@/assets/tools/sublime.svg?raw')
+        icon: import('@/assets/tools/clion.svg?raw')
       }
     ]}
   />
@@ -173,38 +173,41 @@ const headings = [
   />
 
   {/* gossips */}
-  <h2 id='gossips'>Gossips</h2>
-  <Collapse title='Lorem ipsum'>
-    Lorem ipsum dolor sit amet, vidit suscipit at mei. Quem denique mea id. Usu ei regione indoctum
-    dissentiunt, cu meliore fuisset mei, vel quod voluptua ne. Ex dicat impedit mel, at eum oratio
-    possit voluptatum.
+  <h2 id='gossips'>Gossips 八卦</h2>
+  <Collapse title='最喜欢的动漫'>
+    <a href="https://www.bilibili.com/bangumi/play/ss1699" target="_blank">四月是你的谎言</a>😭
+    <br/>
+    谁能拒绝<a href="https://zh.wikipedia.org/wiki/宫园薰" target="_blank">宫园薰</a>😭
+  </Collapse>
+    <Collapse title='最钦佩的导演'>
+    <a href="https://zh.wikipedia.org/zh-hans/斯坦利·库布里克" target="_blank">斯坦利库布里克</a>
+    <br/>
+    <a href="https://zh.wikipedia.org/wiki/發條橘子_(電影)" target="_blank">发条橙！！！is my god</a>
+  </Collapse>
+    <Collapse title='最喜欢女演员'>
+    <a href="https://zh.wikipedia.org/wiki/玛雅·霍克" target="_blank">玛雅霍克</a>，这就是乌玛·瑟曼和伊桑·霍克的女儿，从怪奇物语中的罗宾开始喜欢
+    <br/>
+    <a href="https://zh.wikipedia.org/zh-hans/桂綸鎂" target="_blank">桂纶镁</a>好吧，<a https://zh.wikipedia.org/wiki/不能說的·秘密" target="_blank">不能说的秘密</a>里的路小雨，超有气质
+    <br/>
+    <a href="hhttps://zh.wikipedia.org/zh-hans/姬拉·麗莉" target="_blank">凯拉奈特利</a>，英伦玫瑰🌹
   </Collapse>
 
   {/* about-blog */}
-  <h2 id='about-blog'>About Blog</h2>
-  <p>Website history:</p>
+  <h2 id='about-blog'>Education</h2>
   <Timeline
     events={[
       {
-        date: '2024-04-29',
+        date: '2023-09-01',
         content:
-          'Website refectered using <a href="https://astro.build/" target="_blank">Astro</a> and <a href="https://github.com/srleom/astro-theme-resume" target="_blank">Astro Theme Resume</a>'
+          '<a href="https://www.sustech.edu.cn" target="_blank">南方科技大学</a>'
       },
       {
-        date: '2024-07-26',
-        content:
-          'Website abstracted as a theme and published on <a href="https://github.com/cworld1/astro-theme-pure"target="_blank">Github</a>'
-      },
-      {
-        date: '2024-07-27',
-        content: 'Writed website docs'
+        date: '2020-09-01',
+        content: '<a href="https://www.shimen.org" target="_blank">石门中学</a>'
       }
     ]}
   />
-  <p>
-    The smooth operation and personalized customization of website also rely on the resources and
-    technical support provided by the following excellent projects/service providers:
-  </p>
+  <h2 id='about-blog'>About Blog</h2>
   <ul>
     <li>Domain: <a href='#' target='_blank'>Vercel</a></li>
     <li>

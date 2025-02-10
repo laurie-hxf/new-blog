@@ -11,6 +11,11 @@ heroImage: { src: './thumbnail.jpg', color: '#D58388' }
 
 3D rendering is all around us. From huge action movies to car commercials to previews of upcoming buildings or product designs, 3D visualization has become so widespread and realistic that you probably don’t even know it’s there.
 
+$$\sum $$
+
+<mark>eg1</mark>
+> nihao1
+
 In this introductory piece, Chaos’ Ricardo Ortiz explains the basics of 3D rendering, from the computational methods that create imagery to the artistic techniques that create great computer-generated (CG) content and its various uses.
 
 ## What is 3D Rendering?
