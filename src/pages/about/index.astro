@@ -173,24 +173,117 @@ const headings = [
   />
 
   {/* gossips */}
-  <h2 id='gossips'>Gossips 八卦</h2>
-  <Collapse title='最喜欢的动漫'>
-    <a href="https://www.bilibili.com/bangumi/play/ss1699" target="_blank">四月是你的谎言</a>😭
-    <br/>
-    谁能拒绝<a href="https://zh.wikipedia.org/wiki/宫园薰" target="_blank">宫园薰</a>😭
-  </Collapse>
-    <Collapse title='最钦佩的导演'>
-    <a href="https://zh.wikipedia.org/zh-hans/斯坦利·库布里克" target="_blank">斯坦利库布里克</a>
-    <br/>
-    <a href="https://zh.wikipedia.org/wiki/發條橘子_(電影)" target="_blank">发条橙！！！is my god</a>
-  </Collapse>
-    <Collapse title='最喜欢女演员'>
-    <a href="https://zh.wikipedia.org/wiki/玛雅·霍克" target="_blank">玛雅霍克</a>，这就是乌玛·瑟曼和伊桑·霍克的女儿，从怪奇物语中的罗宾开始喜欢
-    <br/>
-    <a href="https://zh.wikipedia.org/zh-hans/桂綸鎂" target="_blank">桂纶镁</a>好吧，<a https://zh.wikipedia.org/wiki/不能說的·秘密" target="_blank">不能说的秘密</a>里的路小雨，超有气质
-    <br/>
-    <a href="hhttps://zh.wikipedia.org/zh-hans/姬拉·麗莉" target="_blank">凯拉奈特利</a>，英伦玫瑰🌹
-  </Collapse>
+  <h2 id='gossips' class="flex items-center gap-2 text-xl font-semibold">
+    <span>✨ Gossips</span>
+    <span class="text-base font-normal text-muted-foreground">八卦</span>
+  </h2>
+
+  <div class="space-y-4">
+    <Collapse 
+      title='🎬 最喜欢的动漫' 
+      class="hover:bg-muted/50 transition-colors"
+    >
+      <div class="space-y-3 p-2">
+        <div class="flex items-center gap-2">
+          <a 
+            href="https://www.bilibili.com/bangumi/play/ss1699" 
+            target="_blank"
+            class="text-blue-500 hover:text-blue-600 transition-colors"
+          >
+            四月是你的谎言
+          </a>
+          <span class="text-sm text-muted-foreground">- 最戳心的音乐番</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span>谁能拒绝</span>
+          <a 
+            href="https://zh.wikipedia.org/wiki/宫园薰" 
+            target="_blank"
+            class="text-blue-500 hover:text-blue-600 transition-colors"
+          >
+            宫园薰
+          </a>
+          <span>😭</span>
+        </div>
+      </div>
+    </Collapse>
+
+    <Collapse 
+      title='🎥 最钦佩的导演'
+      class="hover:bg-muted/50 transition-colors"
+    >
+      <div class="space-y-3 p-2">
+        <div class="flex items-center gap-2">
+          <a 
+            href="https://zh.wikipedia.org/zh-hans/斯坦利·库布里克" 
+            target="_blank"
+            class="text-blue-500 hover:text-blue-600 transition-colors"
+          >
+            斯坦利·库布里克
+          </a>
+          <span class="text-sm text-muted-foreground">- 电影界的完美主义者</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <a 
+            href="https://zh.wikipedia.org/wiki/發條橘子_(電影)" 
+            target="_blank"
+            class="text-blue-500 hover:text-blue-600 transition-colors"
+          >
+            发条橙
+          </a>
+          <span class="text-sm text-muted-foreground">is my god! 🎬</span>
+        </div>
+      </div>
+    </Collapse>
+
+    <Collapse 
+      title='👩 最喜欢的女演员'
+      class="hover:bg-muted/50 transition-colors"
+    >
+      <div class="space-y-4 p-2">
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <a 
+              href="https://zh.wikipedia.org/wiki/玛雅·霍克" 
+              target="_blank"
+              class="text-blue-500 hover:text-blue-600 transition-colors"
+            >
+              玛雅·霍克
+            </a>
+            <span class="text-sm text-muted-foreground">- 怪奇物语中的 Robin</span>
+          </div>
+          <p class="text-sm text-muted-foreground">乌玛·瑟曼和伊桑·霍克的女儿，从怪奇物语开始喜欢</p>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <a 
+              href="https://zh.wikipedia.org/zh-hans/桂綸鎂" 
+              target="_blank"
+              class="text-blue-500 hover:text-blue-600 transition-colors"
+            >
+              桂纶镁
+            </a>
+            <span class="text-sm text-muted-foreground">- 不能说的秘密中的路小雨</span>
+          </div>
+          <p class="text-sm text-muted-foreground">超有气质的台湾演员</p>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <a 
+              href="https://zh.wikipedia.org/zh-hans/姬拉·麗莉" 
+              target="_blank"
+              class="text-blue-500 hover:text-blue-600 transition-colors"
+            >
+              凯拉·奈特利
+            </a>
+            <span class="text-sm text-muted-foreground">- 英伦玫瑰 🌹</span>
+          </div>
+        </div>
+      </div>
+    </Collapse>
+  </div>
 
   {/* about-blog */}
   <h2 id='about-blog'>Education</h2>

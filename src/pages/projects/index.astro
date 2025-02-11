@@ -10,6 +10,7 @@ import alipay from '@/assets/alipay-qrcode.jpg'
 import KeyIcon from '@/assets/icons/key.svg'
 import wechat from '@/assets/wechat-qrcode.jpg'
 import config from '@/site-config'
+import { Comment } from 'astro-pure/advanced'
 
 const headings = [
   { depth: 2, slug: 'theme', text: 'Theme' },
@@ -23,14 +24,14 @@ const headings = [
 
 <PageLayout title='Projects' {headings} info={{ slug: '/projects', hideComment: true }}>
   <p>Github Activities:</p>
-  {/* <p>
+  <p>
     <Image
       src='https://ghchart.rshah.org/659eb9/laurie-hxf'
       alt='github activities'
       inferSize
       loading='lazy'
     />
-  </p>*/}
+  </p>
   <p>
     If you think it would be useful or interesting to collaborate on a project, you can donate to
     support my work or contact me to discuss a project.
@@ -174,7 +175,7 @@ const headings = [
       ))
     }
   </div>
-
+  <Comment slot='bottom' />
 </PageLayout>
 
 <script

@@ -12,6 +12,7 @@ import SkillLayout from '@/components/home/SkillLayout.astro'
 import avatar from '@/assets/avatar.png'
 import config from '@/site-config'
 import { Button, Collapse, Spoiler, Timeline } from 'astro-pure/user'
+import { Comment } from 'astro-pure/advanced'
 
 const Programming = ['Java', 'Python', 'C','C++', 'Shell','Pytorch']
 const Tools = ['Vim', 'Markdown', 'LaTeX','Git','Linux']
@@ -203,5 +204,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
       </Section>
     </div>
     <Quote class='mt-12' />
+    <Comment />
   </main>
+
 </PageLayout>
