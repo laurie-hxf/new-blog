@@ -52,7 +52,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
       </div>
 
       {/* Get template */}
-      <a
+      {/*<a
         href='https://github.com/cworld1/astro-theme-pure'
         target='_blank'
         class='flex flex-row items-center gap-x-3 rounded-full border bg-background px-4 py-2 text-sm shadow-sm transition-shadow hover:shadow-md'
@@ -63,15 +63,73 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
           ></span>
           <span class='size-2 rounded-full bg-green-400'></span>
         </span>
-        <p class='font-medium text-muted-foreground'>Get Template</p>
-      </a>
+        <p class='font-medium text-muted-foreground'>天气</p>
+      </a>*/}
+
+      <button
+    id="weatherBtn"
+    class='flex flex-row items-center gap-x-3 rounded-full border bg-background px-4 py-2 text-sm shadow-sm transition-shadow hover:shadow-md'
+  >
+    <span class='relative flex items-center justify-center'>
+      <span class='absolute size-2 animate-ping rounded-full border border-green-400 bg-green-400 opacity-75'></span>
+      <span class='size-2 rounded-full bg-green-400'></span>
+    </span>
+    <p class='font-medium text-muted-foreground'>weather</p>
+  </button>
+  <div id="weatherInfo" class="mt-4 p-4 rounded-lg bg-gray-100 hidden">
+    <!-- 天气信息将在这里显示 -->
+  </div>
+<script>
+document.getElementById('weatherBtn').addEventListener('click', async () => {
+  const weatherInfo = document.getElementById('weatherInfo');
+  
+  // 如果天气信息已显示，直接隐藏并退出
+  if (!weatherInfo.classList.contains('hidden')) {
+    weatherInfo.classList.add('hidden');
+    return;
+  }
+
+  // 以下是原有获取天气的逻辑
+  try {
+    const position = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+
+    const response = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code&timezone=auto`
+    );
+    
+ const data = await response.json();
+    
+    // 解析天气代码（示例：0=晴天，1=多云，3=雨天）
+    const weatherText = {
+      0: '☀️ 晴天', 1: '⛅ 多云', 2: '🌤️ 局部晴', 3: '🌥️ 阴天',
+      45: '🌫️ 雾', 61: '🌧️ 小雨', 63: '🌧️ 中雨', 80: '⛈️ 雷阵雨'
+    }[data.current.weather_code] || '未知天气';
+
+    weatherInfo.innerHTML = `
+      <h3 class="font-bold">当前位置天气</h3>
+      <p>温度：${data.current.temperature_2m}°C</p>
+      <p>体感：${data.current.apparent_temperature}°C</p>
+      <p>天气：${weatherText}</p>
+      <p>湿度：${data.current.relative_humidity_2m}%</p>
+    `;
+    
+    weatherInfo.classList.remove('hidden'); // 显示容器
+    
+  } catch (error) {
+    weatherInfo.innerHTML = '<p class="text-red-500">无法获取天气信息</p>';
+    weatherInfo.classList.remove('hidden');
+  }
+});
+</script>
     </section>
 
     <div id='content' class='animate flex flex-col gap-y-10 md:w-4/5 lg:w-5/6'>
       <Section title='About'>
         <p class='text-muted-foreground'>Debugger / CSer</p>
         <p class='text-muted-foreground'>
-          Hi there! 👋 I am laurie, a senior undergraduate student at the School of CS, Sustech University, majoring in Computer Science.
+          Hi there! 👋 I am laurie, a sophomore (second-year) undergraduate student at the School of CS, Sustech University, majoring in Computer Science.
         </p>
         <p class='text-muted-foreground'>
         I am interesting in ai. I want to build digital person just like the film Swan Song.
@@ -120,16 +178,15 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
         altText='Lorem, ipsum dolor sit'
         imageClass='h-12 w-auto md:-start-16'
       />
-    </Section> */
-      }
-      <Section title='Education'>
+    </Section> */}
+      {/*<Section title='Education'>
         <Card
           as='a'
           heading='南方科技大学'
           subheading='Major:Computer Science'
           date='August 2023 - July 2027'
           href='https://www.sustech.edu.cn'
-          imagePath='/src/assets/projects/alex-tyson-2BAXJ7ha74s-unsplash.jpg'
+          image='/src/assets/projects/alex-tyson-2BAXJ7ha74s-unsplash.jpg'
           altText='SUSTech Logo'
           imageClass='h-16 w-16 object-cover rounded-lg'
         >
@@ -153,10 +210,41 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
             molestiae laboriosam pariatur!
           </li>
           <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, pariatur!</li>
-        </ul> */
+        </ul> 
           }
         </Card>
-      </Section>
+      </Section>*/}
+        <section class="animate flex flex-col gap-y-5 md:flex-row md:gap-y-0">
+        <div class="text-xl font-semibold md:min-w-36">
+        <h2>Education</h2>
+        </div>
+        <div class="flex flex-1 flex-col gap-y-3">
+                        <a class="not-prose block relative rounded-2xl border border-border bg-primary-foreground px-5 py-3 transition-all hover:border-foreground/25 hover:shadow-sm" href="https://www.sustech.edu.cn">
+                            <div class="flex flex-col gap-y-1.5">
+                                <div class="flex flex-col gap-y-0.5">
+                                    <h2 class="text-lg font-medium">南方科技大学</h2>
+                                    <p class="text-muted-foreground">Full-time Undergraduate Student</p>
+                                    <p class="text-muted-foreground">August 2023 - Present</p>
+                                    <li data-astro-cid-j7pv25f6>Major: Computer Science</li>
+                                    <li data-astro-cid-j7pv25f6>GPA: <Spoiler>不告诉你</Spoiler></li>
+                                </div>
+                                <img class="absolute end-0 z-0 m-0 -my-3 h-full w-1/2 object-cover opacity-20" src="src/assets/sustech.png">
+                            </div>
+                        </a>
+                        <a class="not-prose block relative rounded-2xl border border-border bg-primary-foreground px-5 py-3 transition-all hover:border-foreground/25 hover:shadow-sm" href="https://www.shimen.org">
+                            <div class="flex flex-col gap-y-1.5">
+                                <div class="flex flex-col gap-y-0.5">
+                                    <h2 class="text-lg font-medium">石门中学</h2>
+                                    <p class="text-muted-foreground">Full-time High School Student</p>
+                                    <p class="text-muted-foreground">August 2020 - July 2023</p>
+                                    <li data-astro-cid-j7pv25f6>Major: Physical Chemistry Biology</li>
+                                    <li data-astro-cid-j7pv25f6>Location: Guangdong, Foshan</li>
+                                </div>
+                                <img class="absolute end-0 z-0 m-0 -my-3 h-full w-1/2 object-cover opacity-15" src="src/assets/shimen.jpeg">
+                            </div>
+                        </a>
+                    </div>
+        </section>
 
       {/*<Section title='Website List'>
         <div class='grid grid-cols-1 gap-3 sm:grid-cols-2'>
@@ -203,8 +291,19 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
         <SkillLayout title='Tools' skills={Tools} />
       </Section>
     </div>
-    <Quote class='mt-12' />
+
+
+    <div class="mt-16 flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md">
+     <span class='relative flex items-center justify-center'>
+          <span
+            class='absolute size-2 animate-ping rounded-full border border-green-400 bg-green-400 opacity-75'
+          ></span>
+          <span class='size-2 rounded-full bg-green-400'></span>
+        </span>
+        <p class='font-medium text-muted-foreground'>放松与宽心</p>
+    </div>
     
   </main>
+  
   <Comment />
 </PageLayout>
