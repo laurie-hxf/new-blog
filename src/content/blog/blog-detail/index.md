@@ -73,7 +73,7 @@ bun dev
 这个就在/src/pages/index/index.astro里面更改
 
 ### Blog
-写博客在/src/content/blog里面添加文件夹，然后把图片放到文件夹里面。仿照现有的blog模仿就行。
+写博客在/src/content/blog里面添加文件夹，然后把图片放到文件夹里面。仿照现有的blog模仿就行。如果习惯在obsidian中写博客，可能格式不能兼容，可以看看我写的[工具](https://github.com/laurie-hxf/obsidian-convert-format)来转化格式。
 
 
 **值得注意的是，除了blog里的图片放到对应文件夹里面，其他额外的图片都要放到/public这个文件夹里面。**
