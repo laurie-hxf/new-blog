@@ -6,7 +6,7 @@ tags:
   - Optimization
   - DeepLearing
 language: 'Chinese'
-heroImage: { src: './thumbnail.jpg', color: '#64574D' }
+heroImage: { src: './截屏2025-02-06 18.32.26.png', color: '#64574D' }
 ---
 
 事实上，损失函数只是告诉你当前的W造成的损失是多少，判断这个W到底好不好，但是没有告诉你怎么找这个W。

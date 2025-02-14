@@ -6,7 +6,7 @@ tags:
   - Classifier
   - DeepLearing
 language: 'Chinese'
-heroImage: { src: './thumbnail.jpg', color: '#64574D' }
+heroImage: { src: './截屏2025-01-1323.49.21.png', color: '#64574D' }
 ---
 
 

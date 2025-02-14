@@ -6,7 +6,7 @@ tags:
   - Classifier
   - DeepLearing
 language: 'Chinese'
-heroImage: { src: './thumbnail.jpg', color: '#64574D' }
+heroImage: { src: './截屏2025-01-23 22.33.47.png', color: '#64574D' }
 ---
 ## Parametric Approach(参数法)
 
