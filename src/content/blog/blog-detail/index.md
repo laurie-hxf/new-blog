@@ -5,7 +5,7 @@ description: 'The details about this blog'
 tags:
  - blog
 language: 'Chinese'
-heroImage: { src: './blog.jpeg', color: '#64574D' }
+heroImage: { src: './blog.png', color: '#64574D' }
 ---
 ## 动机
 
