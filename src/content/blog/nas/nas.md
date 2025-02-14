@@ -6,7 +6,7 @@ tags:
   - Technology
   - NAS
 language: 'Chinese'
-heroImage: { src: './thumbnail.jpg', color: '#D58388' }
+heroImage: { src: './nas.jpg', color: '#D58388' }
 ---
 该博客主要介绍如何利用一台电脑+机械硬盘来搭建一台可以随地访问的nas
 

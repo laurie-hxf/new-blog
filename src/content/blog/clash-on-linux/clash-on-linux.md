@@ -6,7 +6,7 @@ tags:
   - Technology
   - VPN
 language: 'Chinese'
-heroImage: { src: './thumbnail.jpg', color: '#64574D' }
+heroImage: { src: './linux.jpeg', color: '#64574D' }
 ---
 
 本博客基于这个[博客](https://docs.gtk.pw/contents/linux/linux-clash-gui.html#下载)
