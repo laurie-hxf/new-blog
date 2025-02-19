@@ -12,7 +12,8 @@ A simple, fast and powerful blog theme built by Astro.
 
 ### Use with theme template
 
-See [Getting Started](https://astro-pure.js.org/docs/setup/getting-started).
+See [Getting Started](https://
+/docs/setup/getting-started).
 
 ### Use with common Astro project
 
