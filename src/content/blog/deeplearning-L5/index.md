@@ -4,7 +4,7 @@ publishDate: 2025-02-19
 description: 'UMich EECS 498-007 Deep learning-Neural Networks'
 tags:
  - DeepLearning
- - NeuralNetworks
+ - Neural Networks
 language: 'Chinese'
 heroImage: { src: './截屏2025-02-19 20.14.14.png', color: '#D58388' }
 ---

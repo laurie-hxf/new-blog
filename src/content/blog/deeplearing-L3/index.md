@@ -4,7 +4,7 @@ publishDate: 2025-02-05
 description: 'UMich EECS 498-007 Deep learning-Linear Classifiers'
 tags:
   - Classifier
-  - DeepLearing
+  - deeplearning
 language: 'Chinese'
 heroImage: { src: './截屏2025-01-23 22.33.47.png', color: '#64574D' }
 ---

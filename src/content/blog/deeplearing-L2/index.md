@@ -4,7 +4,7 @@ publishDate: 2025-02-03
 description: 'UMich EECS 498-007 Deep learning-Image Classifier'
 tags:
   - Classifier
-  - DeepLearing
+  - deeplearning
 language: 'Chinese'
 heroImage: { src: './截屏2025-01-1323.49.21.png', color: '#64574D' }
 ---

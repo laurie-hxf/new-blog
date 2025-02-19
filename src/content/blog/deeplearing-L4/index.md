@@ -4,7 +4,7 @@ publishDate: 2025-02-07
 description: 'UMich EECS 498-007 Deep learning-Optimization'
 tags:
   - Optimization
-  - DeepLearing
+  - deeplearning
 language: 'Chinese'
 heroImage: { src: './截屏2025-02-06 18.32.26.png', color: '#64574D' }
 ---
