@@ -14,6 +14,8 @@ heroImage: { src: './nnUNet.png', color: '#64574D' }
 
 所以本次博客主要记录一下如何使用nnUNet进行训练。
 
+[训练仓库](https://github.com/laurie-hxf/nnunet_practise)
+
 ## 配置
 
 - mac m1 pro 16 + 512
