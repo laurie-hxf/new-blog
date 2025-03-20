@@ -6,7 +6,7 @@ tags:
  - essay
  - Medical Imaging
 language: 'Chinese'
-heroImage: { src: './论文.png', color: '#64574D' }
+heroImage: { src: './论文.png', color: '#4E6255' }
 ---
 
 Authors: "Weixing Xie, Junfeng Yao, Xianpeng Cao, Qiqin Lin, Zerui Tang, Xiao Dong, Xiaohu Guo"
