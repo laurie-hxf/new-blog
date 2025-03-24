@@ -319,6 +319,28 @@ if (!weatherBtn || !weatherInfo) {
       </Section>
     </div>
 
+    <div id="clustrmaps-container">
+      <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=557&t=tt&d=lnwXW1hfAPPDPXAuufWSP3RvAEc74IddgN2Cg7etenM&co=a1d2f5'></script>
+  </div>
+  
+  <style>
+  #clustrmaps-container {
+      width: 600px; /* 调整地图的宽度 */
+      height: 300px; /* 调整地图的高度 */
+      overflow: hidden; /* 避免超出容器 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f8f9fa; /* 添加背景色 */
+      border-radius: 10px; /* 圆角 */
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+      padding: 10px;
+      margin-top: 30px;
+      margin-left: 100px;
+  }
+  </style>
+
+  
 
     <div class="mt-16 flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md">
      <span class='relative flex items-center justify-center'>
