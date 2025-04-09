@@ -324,21 +324,21 @@ if (!weatherBtn || !weatherInfo) {
   </div>
   
   <style>
-  #clustrmaps-container {
-      width: 600px; /* 调整地图的宽度 */
-      height: 300px; /* 调整地图的高度 */
-      overflow: hidden; /* 避免超出容器 */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f8f9fa; /* 添加背景色 */
-      border-radius: 10px; /* 圆角 */
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* 添加阴影 */
-      padding: 10px;
-      margin-top: 30px;
-      margin-left: 100px;
-  }
-  </style>
+    #clustrmaps-container {
+        width: 90%; /* 宽度为屏幕的90%，在小屏幕上更合适 */
+        max-width: 600px; /* 最大不超过600px，避免太宽 */
+        aspect-ratio: 2 / 1; /* 保持宽高比为2:1 */
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        margin: 30px auto; /* 上下外边距，水平居中 */
+    }
+    </style>
 
   
 
