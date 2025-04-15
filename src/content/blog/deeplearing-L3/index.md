@@ -1,5 +1,5 @@
 ---
-title: 'Linear Classifiers'
+title: 'Lecture3 Linear Classifiers'
 publishDate: 2025-02-05
 description: 'UMich EECS 498-007 Deep learning-Linear Classifiers'
 tags:

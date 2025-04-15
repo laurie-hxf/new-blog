@@ -1,5 +1,5 @@
 ---
-title: 'lecture7 Convolutional Networks'
+title: 'Lecture7 Convolutional Networks'
 publishDate: 2025-04-15
 description: 'UMich EECS 498-007 lecture7 Convolutional Networks'
 tags:
