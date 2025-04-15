@@ -6,7 +6,7 @@ tags:
  - DeepLearning
  - BackPropagation
 language: 'Chinese'
-heroImage: { src: './propagate-backwards.png', color:'#7FA6D6'}
+heroImage: { src: './propagate-backwards.png', color: '#7FA6D6'}
 ---
 ## Computational Graphs
 

@@ -6,7 +6,7 @@ tags:
  - DeepLearning
  - CNN
 language: 'Chinese'
-heroImage: { src: './CNN.png', color:'#A96A7C'}
+heroImage: { src: './CNN.png', color: '#A96A7C'}
 ---
 ## Filter
 
