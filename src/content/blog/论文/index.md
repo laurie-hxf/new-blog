@@ -8,7 +8,11 @@ tags:
 language: 'Chinese'
 heroImage: { src: './11.png', color: '#5C8D89'}
 ---
+Authors: "Yawar Siddiqui, Julien Valentin, Matthias Niessner"
 
+Date:'2020-06-01'
+
+URL:"https://github.com/nihalsid/ViewAL"
 
 ## Abstract
 
