@@ -1,5 +1,5 @@
 ---
-title: '论文笔记'
+title: 'SurgicalGaussian MICCAI 2024 论文笔记'
 publishDate: 2025-03-20
 description: 'SurgicalGaussian - Deformable 3D Gaussians for High-Fidelity Surgical Scene Reconstruction'
 tags:

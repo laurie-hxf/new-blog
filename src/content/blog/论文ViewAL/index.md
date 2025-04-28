@@ -1,5 +1,5 @@
 ---
-title: '主动学习论文笔记'
+title: '主动学习 ViewAL CVPR 2020 论文笔记'
 publishDate: 2025-04-23
 description: 'ViewAL - Active Learning With Viewpoint Entropy for Semantic Segmentation'
 tags:
