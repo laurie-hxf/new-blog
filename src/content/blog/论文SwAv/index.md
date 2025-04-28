@@ -6,7 +6,7 @@ tags:
  - essay
  - Unsupervised Learning
 language: 'Chinese'
-heroImage: { src: './1.png', color: '#5F8B92'}
+heroImage: { src: './1.png', color: '#497D63'}
 ---
 ![alt text](./截屏2025-04-28%2018.16.10.png)
 ## Introduction
