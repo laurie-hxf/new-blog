@@ -62,12 +62,11 @@ export const theme: ThemeUserConfig = {
     //   url: 'https://google.com',
     //   text: '粤ICP备2025369833号'
     // },
-    // links: [
-    //   { title: 'Privacy Policy', link: '/terms/privacy-policy' }],
+    
     /** Enable displaying a “Astro & Pure theme powered” link in your site’s footer. */
     credits: true,
     /** Optional details about the social media accounts for this site. */
-    social: { github: 'https://github.com/cworld1/astro-theme-pure' }
+    social: { github: 'https://github.com/laurie-hxf' }
   },
 
   content: {
