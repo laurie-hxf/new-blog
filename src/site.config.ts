@@ -58,10 +58,10 @@ export const theme: ThemeUserConfig = {
   /** Configure the footer of your site. */
   footer: {
     // Registration information for ICP (optional)
-    registration: {
-      url: 'https://google.com',
-      text: '粤ICP备2025369833号'
-    },
+    // registration: {
+    //   url: 'https://google.com',
+    //   text: '粤ICP备2025369833号'
+    // },
     // links: [
     //   { title: 'Privacy Policy', link: '/terms/privacy-policy' }],
     /** Enable displaying a “Astro & Pure theme powered” link in your site’s footer. */
