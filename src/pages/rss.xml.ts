@@ -65,7 +65,8 @@ const GET = async (context: AstroGlobal) => {
 
     // Contents
     title: config.title,
-    description: config.description,
+    // description: config.description,
+    description: `${config.description}\nfeedId:112493734937864192+userId:98068239647977472`,
     site: import.meta.env.SITE,
     items: await Promise.all(
       allPostsByDate.map(async (post) => {
