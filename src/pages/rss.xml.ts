@@ -89,9 +89,9 @@ const GET = async (context: AstroGlobal) => {
         return {
           pubDate: post.data.publishDate,
           link: `/blog/${post.id}`,
-          customData: `<h:img src="${enclosureUrl}" />
-            <enclosure url="${enclosureUrl}" length="${enclosureLength}" type="${enclosureType}" />`,
-          content: await renderContent(post, siteUrl),
+          customData: `<img src="${enclosureUrl}" alt="" style="max-width:100%;height:auto;" />
+    <enclosure url="${enclosureUrl}" length="${enclosureLength}" type="${enclosureType}" />`,
+          content: `<img src="${enclosureUrl}" alt="" style="max-width:100%;height:auto;" />\n` + await renderContent(post, siteUrl),
           ...post.data
         }
       })
