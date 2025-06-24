@@ -68,14 +68,33 @@ const GET = async (context: AstroGlobal) => {
     description: config.description,
     site: import.meta.env.SITE,
     items: await Promise.all(
-      allPostsByDate.map(async (post) => ({
-        pubDate: post.data.publishDate,
-        link: `/blog/${post.id}`,
-        customData: `<h:img src="${typeof post.data.heroImage?.src === 'string' ? post.data.heroImage?.src : post.data.heroImage?.src.src}" />
-          <enclosure url="${typeof post.data.heroImage?.src === 'string' ? post.data.heroImage?.src : post.data.heroImage?.src.src}" />`,
-        content: await renderContent(post, siteUrl),
-        ...post.data
-      }))
+      allPostsByDate.map(async (post) => {
+        // 获取图片信息
+        const heroImage = post.data.heroImage;
+        let enclosureUrl = '';
+        let enclosureLength = 0;
+        let enclosureType = '';
+
+        if (heroImage?.src) {
+          if (typeof heroImage.src === 'string') {
+            enclosureUrl = heroImage.src;
+          } else {
+            enclosureUrl = heroImage.src.src;
+            enclosureLength = 0; // ImageMetadata does not have size, set to 0 as fallback
+            enclosureType = heroImage.src.format ? `image/${heroImage.src.format}` : '';
+          }
+        }
+
+        // fallback: 如果没有 size/type，可以用 0 和空字符串
+        return {
+          pubDate: post.data.publishDate,
+          link: `/blog/${post.id}`,
+          customData: `<h:img src="${enclosureUrl}" />
+            <enclosure url="${enclosureUrl}" length="${enclosureLength}" type="${enclosureType}" />`,
+          content: await renderContent(post, siteUrl),
+          ...post.data
+        }
+      })
     )
   })
 }
