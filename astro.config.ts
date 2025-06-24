@@ -1,18 +1,14 @@
-// @ts-check
-
 import { rehypeHeadingIds } from '@astrojs/markdown-remark'
 import vercel from '@astrojs/vercel'
 import AstroPureIntegration from 'astro-pure'
 import { defineConfig } from 'astro/config'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
-import UnoCSS from 'unocss/astro'
 
 // Others
 // import { visualizer } from 'rollup-plugin-visualizer'
 
 // Local integrations
-import { outputCopier } from './src/plugins/output-copier.ts'
 // Local rehype & remark plugins
 import rehypeAutolinkHeadings from './src/plugins/rehype-auto-link-headings.ts'
 // Shiki
@@ -52,11 +48,10 @@ export default defineConfig({
   },
 
   integrations: [
-    // astro-pure will automatically add sitemap, mdx & tailwind
+    // astro-pure will automatically add sitemap, mdx & unocss
     // sitemap(),
     // mdx(),
-    UnoCSS({ injectReset: true }),
-    AstroPureIntegration(config),
+    AstroPureIntegration(config)
     // (await import('@playform/compress')).default({
     //   SVG: false,
     //   Exclude: ['index.*.js']
@@ -64,9 +59,6 @@ export default defineConfig({
 
     // Temporary fix vercel adapter
     // static build method is not needed
-    outputCopier({
-      integ: ['sitemap', 'pagefind']
-    })
   ],
   // root: './my-project-directory',
 
@@ -108,7 +100,6 @@ export default defineConfig({
     }
   },
   experimental: {
-    svg: true,
     contentIntellisense: true
   },
   vite: {

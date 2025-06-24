@@ -1,4 +1,4 @@
-import { defineConfig, presetTypography, presetUno } from 'unocss'
+import { defineConfig, presetMini, presetTypography, type Rule } from 'unocss'
 
 const fg = 'hsl(var(--foreground) / var(--un-text-opacity, 1))'
 const fgMuted = 'hsl(var(--muted-foreground) / var(--un-text-opacity, 1))'
@@ -51,9 +51,7 @@ const typographyConfig = {
     },
     // Table
     table: {
-      display: 'inline-table',
-      width: '100%',
-      'overflow-x': 'scroll',
+      display: 'block',
       'font-size': '.875em'
     },
     'table tr': {
@@ -66,7 +64,7 @@ const typographyConfig = {
       'font-weight': '500',
       color: fg
     },
-    'td,th': {
+    'td, th': {
       border: 'inherit',
       'text-align': 'start',
       padding: '0.57em'
@@ -110,6 +108,10 @@ const typographyConfig = {
     a: {
       'font-weight': '500',
       color: fg
+    },
+    'code:not(pre code)': {
+      'white-space': 'pre-wrap!important',
+      'word-break': 'break-all!important'
     }
   }
 }
@@ -150,12 +152,31 @@ const themeColors = {
   }
 }
 
+const rules: Rule<object>[] = [
+  // Fix unocss presetMini
+  [
+    'sr-only',
+    {
+      position: 'absolute',
+      width: '1px',
+      height: '1px',
+      padding: '0',
+      margin: '-1px',
+      overflow: 'hidden',
+      clip: 'rect(0,0,0,0)',
+      'white-space': 'nowrap',
+      'border-width': '0'
+    }
+  ]
+]
+
 export default defineConfig({
   presets: [
-    presetUno(), // required
+    presetMini(), // required
+    // presetWind3(), // original full version
     presetTypography(typographyConfig)
   ],
-  rules: [],
+  rules,
   theme: {
     colors: themeColors
   },
