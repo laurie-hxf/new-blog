@@ -62,9 +62,16 @@ export const theme: ThemeUserConfig = {
     //   url: 'https://google.com',
     //   text: '粤ICP备2025369833号'
     // },
-    
+      links: [
+    {
+      title: '粤ICP备2025369833号',
+      link: 'https://google.com',
+      style: 'secondary',    
+      pos: 1               
+    }
+  ],
     /** Enable displaying a “Astro & Pure theme powered” link in your site’s footer. */
-    credits: true,
+    credits: false,
     /** Optional details about the social media accounts for this site. */
     social: { github: 'https://github.com/laurie-hxf' }
   },
