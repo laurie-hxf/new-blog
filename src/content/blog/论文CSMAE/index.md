@@ -5,7 +5,7 @@ description: 'CSMAE - Cataract Surgical Masked Autoencoder (MAE) based Pre-train
 tags:
  - essay
  - video-pretraining
- - 无监督学习
+ - Unsupervised Learning
 language: 'Chinese'
 heroImage: { src: './截屏2025-07-07 00.10.30.png', color: '#D68B6F'}
 ---
