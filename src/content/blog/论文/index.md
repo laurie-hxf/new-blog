@@ -22,7 +22,7 @@ heroImage: { src: './截屏2025-07-30 14.42.58.png', color: '#C7B08B'}
 这是文章中提出来的框架，主要用的是ResNet结合魔改过的FPN。补充一下FPN的背景
 #### FPN
 
-可以看(这里)[]
+可以看[这里](https://laurie-hxf.xyz/blog/%E8%AE%BA%E6%96%87fpn)
 
 #### SAM
 
