@@ -1,5 +1,5 @@
 ---
-title: '像素级自监督 COVER CVPR 2025 论文笔记'
+title: '像素级自监督 COVER ICCV 2025 论文笔记'
 publishDate: 2025-08-05
 description: 'Vector Contrastive Learning For Pixel-Wise Pretraining In Medical Vision'
 tags:
