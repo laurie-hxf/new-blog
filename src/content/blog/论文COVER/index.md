@@ -24,7 +24,7 @@ heroImage: { src: './截屏2025-08-05 17.02.51.png', color: '#5F8B92'}
 
 ## Self-vector regression for extendable self-learning(SeVR)
 
-一开始的流程就是我从数据集中$x\sim\mathcal{D}$选一张图片。然后选两个图片增强方式，一个是颜色$t\sim\mathcal{T}_{ap}$，另一个是空间$\psi_{ab}\sim\mathcal{T}_{sp}$ 。然后处理之后得到两张图$x_{a}=t(x),x_{b}=\psi_{ab}(x)$ 。经过同一个backbone提取特征之后，$F_{a}=\{f_{a}^{l}\}_{l=0}^{L}={\mathcal{N}_{\theta}}(x_{a})$  ，$F_{b}=\{f_{b}^{l}\}_{l=0}^{L}={\mathcal{N}_{\theta}}(x_{b})$ 。他的想法就是我用经过空间增强后，我可以的到他的DVF，我用这个DVF作为ground truth $\psi_{ab}^{i}$，然后我用进行颜色增强的图片来预测这个DVF。想法就是我提取出特征向量之后，比较这两个图片的差异，然后为根据每一个像素转化成矢量。这就很神奇了，两个图片的差异或相似怎么得到一个矢量呢，[[#Vector embedding unit (VEU) $U( cdot, cdot)$|后面]]会讲。
+一开始的流程就是我从数据集中$x\sim\mathcal{D}$选一张图片。然后选两个图片增强方式，一个是颜色$t\sim\mathcal{T}_{ap}$，另一个是空间$\psi_{ab}\sim\mathcal{T}_{sp}$ 。然后处理之后得到两张图$x_{a}=t(x),x_{b}=\psi_{ab}(x)$ 。经过同一个backbone提取特征之后，$F_{a}=\{f_{a}^{l}\}_{l=0}^{L}={\mathcal{N}_{\theta}}(x_{a})$  ，$F_{b}=\{f_{b}^{l}\}_{l=0}^{L}={\mathcal{N}_{\theta}}(x_{b})$ 。他的想法就是我用经过空间增强后，我可以的到他的DVF，我用这个DVF作为ground truth $\psi_{ab}^{i}$，然后我用进行颜色增强的图片来预测这个DVF。想法就是我提取出特征向量之后，比较这两个图片的差异，然后为根据每一个像素转化成矢量。这就很神奇了，两个图片的差异或相似怎么得到一个矢量呢，[后面](#vector-embedding-unit-veu)会讲。
 
 一部分的损失函数就是
 $$
@@ -38,13 +38,13 @@ $$
 
 一致性损失也是很常见的概念，思想就是不管你对一幅图像做了什么变换（裁剪、旋转、空间扰动等），同一位置（或变换后位置）对应的像素/patch/区域，其表征特征应该不变或者尽可能相似。
 
-文中意思就是我图a提取出来的特征$f_a^4$ 经过ground truth的DVF处理之后$f_{ab}^4=\psi_{ab}(f_a^4)$，他和图b的语义信息应该一样。计算他们的余弦相似度，然后作为损失函数。然后还有奇怪的地方在于$f_a^4$ 这个4是什么意思，[[#Vector pyramid aggregation adapts granularity|后面]]会讲。
+文中意思就是我图a提取出来的特征$f_a^4$ 经过ground truth的DVF处理之后$f_{ab}^4=\psi_{ab}(f_a^4)$，他和图b的语义信息应该一样。计算他们的余弦相似度，然后作为损失函数。然后还有奇怪的地方在于$f_a^4$ 这个4是什么意思，[后面](#vector-pyramid-aggregation-adapts-granularity)会讲。
 
 所以总的就是$$\mathcal{L}_{COVER}=\mathcal{L}_{con}+\mathcal{L}_{vec}$$
 
 ## Mixture of vectors with consistent optimization flow(MoV)
 
-#### Vector embedding unit (VEU) $U(\cdot,\cdot)$ 
+#### Vector embedding unit (VEU)
 
 这里就是具体讲怎么从特征图到向量。
 
