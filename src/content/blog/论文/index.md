@@ -1,103 +1,85 @@
 ---
-title: '像素级自监督 COVER ICCV 2025 论文笔记'
-publishDate: 2025-08-05
-description: 'Vector Contrastive Learning For Pixel-Wise Pretraining In Medical Vision'
+title: '像素级自监督 SAM IEEE Trans 2023 论文笔记'
+publishDate: 2025-07-31
+description: 'SAM - Self-supervised Learning of Pixel-wise Anatomical Embeddings in Radiological Images'
 tags:
  - essay
  - video-pretraining
  - Unsupervised Learning
 language: 'Chinese'
-heroImage: { src: './截屏2025-08-05 17.02.51.png', color: '#5F8B92'}
+heroImage: { src: './截屏2025-07-30 14.42.58.png', color: '#D3B8A1'}
 ---
 
 ## 前言
+![alt text](./截屏2025-07-30%2014.42.58.png)
 
-![alt text](./截屏2025-08-05%2017.02.51.png)
+这篇文章的主要贡献就是在医学图像领域提出一个像素级的自监督解剖嵌入学习框架，主要采用coarse-to-fine结构以及文章中提出的负样本采样策略。
 
-这篇文章主要提出了一种像素级的自监督框架，感觉他摆脱了原本自监督正样本对和负样本对的思想，有点跳脱开来提出一种新的想法。原本的正负样本对属于二元对比学习，将正样本对拉近，然后将负样本对推开。但是论文指出这会有一个问题，**over-dispersion(过度发散)**。
+然后在多个任务表现良好，比如lesion matching(病灶匹配)，image Registration(图片配准)。病灶配准就是一开始拍摄的图片中可能有个病变，然后一段时间之后再拍一张照片，就能定位原来的那个病变在哪里。image Registration就是把两幅或多幅不同来源、不同时间、不同角度的图像空间上对齐，使它们的同一结构或内容能够准确重合。
 
-模型在训练过程中，为了最大程度推开不同像素之间的特征，导致本来该相近、属于同一种结构/语义的像素（比如同一根血管、同一个区域），在特征空间里被拉得“彼此很远”，破坏了原有的空间或语义连续性。
+## Coarse-to-Fine Network Architecture
 
-本质上来说就是正样本对太少了，负样本对太多了。于是模型设法将除了正样本对其他的所有像素都当作负样本对，都推开。这样就会有问题，图像中有空间连续性和结构一致性，如果这样的话，正样本对周围原本具有连续性应该靠近的都被推开了，这样就会导致特征空间碎片化。
+这是文章中提出来的框架，主要用的是ResNet结合魔改过的FPN。补充一下FPN的背景
+#### FPN
 
-于是文章就提出一种思路，跳脱原本正负样本对的范式，他的想法是让模型学一个**displacement vector field（DVF，位移矢量场）**。想法就是我对图片进行空间变化，然后我让模型去预测这个矢量场，使得其中一张图片根据这个矢量场能够越来越接近另一个图片，预测的差异作为损失函数来训练模型。
+可以看[这里](https://laurie-hxf.xyz/blog/%E8%AE%BA%E6%96%87fpn)
+#### SAM
 
-## Self-vector regression for extendable self-learning(SeVR)
+这个架构的主要流程就是对于一张3D的CT图，我从中随机取两个随机大小的patch，然后将这两个patch放大到同一尺寸，分别为$x, x' \in \mathbb{R}^{d \times h \times w}$ 。然后这两个patch就输入进3D的ResNet中，然后经过FPN得到最上层的特征图，以及最下层的特征图经过3\*3的卷积和L2 正则化之后的到Global emb tensor $F^g$和Local emb tensor $F^l$。他们是128通道，也就是每一个像素对应一个128维大小的特征向量。然后就可以得到两个patch分别的local 和 global emb tensor。
+![alt text](./截屏2025-07-30%2015.37.41.png)
+与一开始的FPN不同，他的右边不是从最上面的特征往下的，他切断了顶层，从倒数第二层开始往下。还有他没有用到1\*1的卷积核，他的通道数都是设计好的，不需要1\*1的卷积核来改变通道数。
 
-一开始的流程就是我从数据集中$x\sim\mathcal{D}$选一张图片。然后选两个图片增强方式，一个是颜色$t\sim\mathcal{T}_{ap}$，另一个是空间$\psi_{ab}\sim\mathcal{T}_{sp}$ 。然后处理之后得到两张图$x_{a}=t(x),x_{b}=\psi_{ab}(x)$ 。经过同一个backbone提取特征之后，$F_{a}=\{f_{a}^{l}\}_{l=0}^{L}={\mathcal{N}_{\theta}}(x_{a})$  ，$F_{b}=\{f_{b}^{l}\}_{l=0}^{L}={\mathcal{N}_{\theta}}(x_{b})$ 。他的想法就是我用经过空间增强后，我可以的到他的DVF，我用这个DVF作为ground truth $\psi_{ab}^{i}$，然后我用进行颜色增强的图片来预测这个DVF。想法就是我提取出特征向量之后，比较这两个图片的差异，然后为根据每一个像素转化成矢量。这就很神奇了，两个图片的差异或相似怎么得到一个矢量呢，[[#Vector embedding unit (VEU) $U( cdot, cdot)$|后面]]会讲。
+## Pixel Pairs and Loss Function
 
-一部分的损失函数就是
+然后我们随机取两个patch中重叠部分的同一个像素作为正样本对，分别为$(p_i,p'_i)$ 他们对应的特征向量为$f_i,f'_i$。然后选$n_{neg}$ 个作为负样本对，用InfoNCE来作为损失函数。
 $$
-\mathcal{L}_{vec}(\psi_{ab},\psi'_{ab},\epsilon_{ab})=\sum_{i\in\{\epsilon_{ab}=1\}}|\psi_{ab}^{i}-\psi_{ab}^{'i}|
+\mathcal{L} = -\sum_{i=1}^{n_{\text{pos}}} \log \frac{\exp(\mathbf{f}_i \cdot \mathbf{f}_i'/\tau)}{\exp(\mathbf{f}_i \cdot \mathbf{f}_i'/\tau) + \sum_{j=1}^{n_{\text{neg}}} \exp(\mathbf{f}_i \cdot \mathbf{h}_{ij}/\tau)}
 $$
-其中$\epsilon_{ab}=1$ 表示图像增强之后重叠有效的像素，一个mask。还有另一部分一致性损失
+还有值得注意的是，Local 和 Global 分别计算损失函数，然后分别以$f_i$和$f'_i$ 作为锚点(anchor)再计算损失函数（上式中分母那里用的是$f_i$为锚点，把他改成$f'_i$就是$f'_i$为锚点），因为对称。所以最终的损失函数应该有4部分。
 $$
-\mathcal{L}_{con}(f_{ab}^{4},f_{b}^{4},\epsilon_{ab})=-\sum_{i\in\{\epsilon_{ab}=1\}}\frac{f_{ab}^{4,i}\cdot f_{b}^{4,i}}{||f_{ab}^{4,i}||||f_{b}^{4,i}||}
-$$
-其中$f_{ab}^4=\psi_{ab}(f_a^4)$
-
-一致性损失也是很常见的概念，思想就是不管你对一幅图像做了什么变换（裁剪、旋转、空间扰动等），同一位置（或变换后位置）对应的像素/patch/区域，其表征特征应该不变或者尽可能相似。
-
-文中意思就是我图a提取出来的特征$f_a^4$ 经过ground truth的DVF处理之后$f_{ab}^4=\psi_{ab}(f_a^4)$，他和图b的语义信息应该一样。计算他们的余弦相似度，然后作为损失函数。然后还有奇怪的地方在于$f_a^4$ 这个4是什么意思，[[#Vector pyramid aggregation adapts granularity|后面]]会讲。
-
-所以总的就是$$\mathcal{L}_{COVER}=\mathcal{L}_{con}+\mathcal{L}_{vec}$$
-
-## Mixture of vectors with consistent optimization flow(MoV)
-
-#### Vector embedding unit (VEU) $U(\cdot,\cdot)$ 
-
-这里就是具体讲怎么从特征图到向量。
-
-我们遍历图片中的所有像素，对于每一个像素，我们在另一张图上的相同位置取一个N×N的领域，然后我们用这个像素的特征向量去和这个领域里的特征向量做点积得到相似度矩阵，然后你用
-这个和一个向量模版V去计算加权平均，得到最终这个像素的偏移矢量。以此类推，当遍历完一整个矩阵的时候最后得到DVF。
-![alt text](./截屏2025-08-05%2020.02.47.png)
-公式就是
-$$
-v_{ab}^{'i} = \mathcal{U}(f_a^i, f_b^{N \times N}) = \mathrm{softmax}\left(\frac{f_a^i f_b^{T N \times N}}{\tau}\right) V^{N \times N}
+L_\text{total} = L_\text{global}^{f_i\, \text{anchor}} + L_\text{global}^{f'_i\, \text{anchor}} + L_\text{local}^{f_i\, \text{anchor}} + L_\text{local}^{f'_i\, \text{anchor}}
 $$
 
-#### Multi-vector integration (MVI) 
 
-这一段的目的就是我并没有直接处理整个特征向量，而是我讲他分割成 j 个组(小向量)，然后每组跑一遍VEU，最后取平均。
-$$
-u' = \frac{1}{J} \sum_{j=0}^{J} v'j
-$$
-为什么要多此一举呢，论文中解释由于语义连续性和特征多样性，像素的空间对应可能本身就是模糊/歧义/多样的，因此需要用多组特征分别“关注不同语义属性”给出多向量预测，再做融合。
+## Hard and Diverse Negative Sampling
 
-## Vector pyramid aggregation adapts granularity
+这部分就是怎么选他的负样本对，为了模型能学到更多的东西，文章提出他的策略。
 
-论文并没有只用一层的特征向量，他利用了backbone中的多层特征向量，从最顶层的特征向量开始逐步往下。
+对于Global部分，我们用$f_i^g$ 和$F^g$，$F^{g'}$ 做卷积得到余弦相似度，得到的similarity map为  $S_i^g$ 和 $S_i^{g'}$ 
+然后我们选$n_{neg}$个排除$f_i^g$ ，$f_i^{g'}$ 最相似的像素作为hard negatives $h^g_{ij}$  。然后为了多样化，还会从同一个training batch中的不同path的随机$n_{rand}^g$个像素添加进负样本对中。
 
-具体而言，例如
-$$
-\psi_{ab}^{\prime1}=\mathcal{M}(\psi_{ab}^{\prime0}(f_{a}^{1}),f_{b}^{1})\bigodot\psi_{ab}^{\prime0}
-$$
-我得到第0层的DVF $\psi_{ab}^{\prime0}$ 然后我用这个去处理图a的第1层特征，然后我用处理后的特征向量来进行MoV，最后得到该层的初步DVF，然后再和前一层的DVF  $\psi_{ab}^{\prime0}$ 进行融合操作，最后得到这一层的DVF，以此类推，一直到最底层，精度越来越高。最终得到最后的DVF。
+对于Local部分，他同样计算从$F^l$，$F^{l'}$中计算 similarity map为  $S_i^l$ 和 $S_i^{l'}$ ，然后他将global 的similarity map $S_i^g$ 和 $S_i^{g'}$ 上采样到  $S_i^l$ 和 $S_i^{l'}$大小，然后直接相加得到combined similarity map  $S_i^l+S_i^l$ 和 $S_i^{l'}+S_i^{l'}$ ，然后先从中选 $n_{cand}^l > n_{neg}$ 个分数最高的，然后才从中挑$n_{neg}$个作为最终负样本对。这个随机过程，是为了避免所有hard negative都扎堆在某个局部——即使相似，也能让每批hard negative点多样化，避免模型过拟合局部微差。
 
-$$
-\begin{aligned}
- & \psi_{ab}^{\prime}=\mathcal{V}(F_{a},F_{b})=H(\{\psi_{ab}^{\prime l}\}_{l=0}^{L}),\mathrm{~where} &  \\
- & \psi_{ab}^{\prime0}=\mathcal{M}(f_a^0,f_b^0) \\
- & \psi_{ab}^{\prime l}=\mathcal{M}(\psi_{ab}^{\prime l-1}(f_a^l),f_b^l)\bigodot\psi_{ab}^{\prime l-1},l=1,2,...,L-1,
-\end{aligned}
-$$
+## Application: Anatomical Point Matching
 
-那融合操作$\bigodot$ 是什么呢
+![alt text](./截屏2025-07-30%2016.33.41.png)
+这部分就是讲他怎么用在lesion matching(病灶匹配)，一开始给个样本图，然后计算出一开始病灶像素的Local 和 Global的向量，然后同时和后面的图片的tensor做卷积得到相似图，然后结合Local和Gobal的相似图找到后来的病灶位置
 
-$$
- \large \psi_{ab}^{'1} \bigodot \psi_{ab}^{'0} = \overbrace{ \psi_{ab}^{'1} + \underbrace{ \psi_{ab}^{'1} \overbrace{ (2 * \mathcal{I}_{H \times W}(\psi_{ab}^{'0})) }^{\text{Scale alignment}} }_{\text{Space alignment}} }^{\text{Vector fusion}}
- $$
+## Application: Enhancing Image Registration
 
- (1) Scale alignment（尺度对齐）
-- 把“上级层”（比如第 0 层）的 DVF 用双线性插值（bilinear interpolation）上采样到“下级层”——也就是让低分辨率的 DVF（向量场）和当前所处理的高分辨率 DVF 大小一致。
-- 然后把所有向量的数值“放大一倍”（乘 2，或按比例缩放），这样空间单位也对齐到高分辨率那一层的格点范围。
+这部分讲的是怎么用于image Registration(图片配准)。
 
-(2) Space alignment（空间对齐）
-- 即便分辨率对齐后，由于像素格点的排列逻辑不同，还要进一步对中心坐标调整（align），确保两个层级上每个像素/向量的几何对应关系完全对齐。
-- 这些操作保证原本低分辨率的空间位移场被“正确映射”到高分辨率的坐标系。
+#### 1. **SAM-affine：稀疏点仿射配准**
 
-(3) Vector fusion（向量融合）
-- 最后把对齐好的两个层级的 DVF **逐元素相加**，就得到了融合后的新一层 DVF。
-- 直观上，就是“高分辨率细节+低分辨率全局趋势”既有整体又有细节的空间配准效果。
+ **流程**
+- 假设有两幅CT：A（固定影像）、B（要对齐的移动影像）。
+- 你在A上**均匀采样一些网格点**（稀疏，比如只采几百/几千个点，而不是全部体素），这些点覆盖A上的各个解剖部位。
+- 把网格点外（身体外）的点丢弃。
+- **用SAM**，把A中每个采样点的embedding，去B中找“特征最相似的点”作为B上的配对。
+- 计算这些点对的相似度分数，只有“很可靠的高分”对才留下来。
+- 用这些点对，通过最小二乘法直接拟合一个**全局仿射变换矩阵**（类似“坐标对齐”），实现A、B图的大致空间对正。
 
-于是乎我们就得到了最后的DVF。
+#### 2. **SAM-coarse：稀疏点粗变形配准**
+
+ **流程**
+- 上一步只能做到“整体大致套准”，对器官弯曲、形变等局部结构还无法精准重合。
+- 所以，再**从配准后的两幅图（A', B'）中重新采样一批稀疏点**（局部更密集一些也可以）。
+- **再用SAM**嵌入，对齐两图的稀疏点对。
+- 根据点对间的空间关系，**插值得到一张粗略的变形场（deformation field）**（让身体结构能弯曲、拉伸配对）。
+
+#### 3. **SAM-VoxelMorph：深度配准精调**
+
+**流程**
+- 经过前面两轮后，A,B已经基本“空间对应”了，但**最后精细结构、微小差异**依然没法完全对齐。
+- 这一步用现有的深度学习配准网络（VoxelMorph）做细调，“吃进去”的输入包含SAM输出的空间相关特征+SAM相似性损失（即每个点对的embedding距离也影响最终效果）。
+- **SAM相当于做了强力辅助**，支持VoxelMorph网络学到更解剖学、判别性更强的变形映射。
