@@ -4,6 +4,7 @@ publishDate: 2025-08-15
 description: 'Knowledge Insulating Vision-Language-Action Models - Train Fast, Run Fast, Generalize Better'
 tags:
  - VLA
+ - essay
 language: 'Chinese'
 heroImage: { src: './截屏2025-08-13 19.25.04.png', color: '#7FA6D6'}
 ---
