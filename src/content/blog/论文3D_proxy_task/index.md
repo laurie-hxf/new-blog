@@ -5,7 +5,7 @@ description: '3D Self-Supervised Methods for Medical Imaging'
 tags:
  - essay
  - Unsupervised Learning
- - video-pretraning
+ - video-pretraining
 language: 'Chinese'
 heroImage: { src: './截屏2025-07-24 17.05.29.png', color: '#A96A7C'}
 ---
