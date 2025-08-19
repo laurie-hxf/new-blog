@@ -56,9 +56,14 @@ LLMs的成功让人联想能不能把他的能力带到物理世界，于是就�
 
 ## Action expert架构
 
-我觉得这个可以看作是两个Transformer架构的拼接，一开始我有一个VLM的Transformer，然后他有对应的$W_Q,W_K,W_V$ 然后他就输入各种模态的数据，输出就是对应的文字token和离散的动作token。
+![alt text](actionexpert.png)
 
-然后Action expert也是一个Transformer，他的输入就是一系列连续动作向量，也就是我们把视频里的动作切分成很多步然后对应不同的时间步，然后每一个向量里面的数值都是连续精细的小数。我们把这个经过加噪之后得到一系列对应的加噪动作向量作为这个Transformer的输入。他也有自己的$W_Q,W_K,W_V$ ，关键就在于他得到的query vector先乘他自己的key vector得到相似度分数，然后再用他的query vector去乘VLM的key vector，最后经过softmax之后分别得到两组attention score，然后乘对应的自己的Value vector和VLM的Value vector之后再加和得到最后的输出。
+这个也是一个Transformer架构，可以看成分成两个部分一部分VLM，另一部分action expert。这两个集成在一个多模态Transformer中，然后这两个部分分别有各自的$W_Q,W_K,W_V$。
+
+VLM部分他就输入各种模态的数据，输出就是对应的文字token和离散的动作token。
+
+然后Action expert，他的输入就是一系列连续动作向量，也就是我们把视频里的动作切分成很多步然后对应不同的时间步，然后每一个向量里面的数值都是连续精细的小数。我们把这个经过加噪之后得到一系列对应的加噪动作向量作为这个他的输入。关键就在于他得到的query vector先乘他自己的key vector得到相似度分数，然后再用他的query vector去乘VLM的key vector，最后经过softmax之后分别得到两组attention score，然后乘对应的自己的Value vector和VLM的Value vector之后再加和得到最后的输出。
+
 
 公式表示就是
 $$
