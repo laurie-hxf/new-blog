@@ -1,5 +1,5 @@
 ---
-title: 'CS285 Lecture2 Introduction to Reinforcement Learning'
+title: 'CS285 Lecture4 Introduction to Reinforcement Learning'
 publishDate: 2025-12-01
 description: 'CS285 Lecture2 Introduction to Reinforcement Learning'
 tags:
