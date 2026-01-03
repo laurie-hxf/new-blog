@@ -208,10 +208,10 @@ PPT 左侧提出了核心解决方案：**“Punish the policy for exploiting”
 $$
 \tilde{r}(\mathbf{s}, \mathbf{a}) = r(\mathbf{s}, \mathbf{a}) - \lambda u(\mathbf{s}, \mathbf{a})
 $$
-    - **$\tilde{r}(\mathbf{s}, \mathbf{a})$**：修改后的奖励函数。
-    - **$r(\mathbf{s}, \mathbf{a})$**：原始的奖励函数。
-    - **$u(\mathbf{s}, \mathbf{a})$**：**不确定性（Uncertainty）**。这代表模型对自己预测的置信度。如果当前状态和动作偏离了训练数据（即模型没见过），不确定性 $u$ 就会很大。
-    - **$\lambda$**：惩罚系数。
+- **$\tilde{r}(\mathbf{s}, \mathbf{a})$**：修改后的奖励函数。
+- **$r(\mathbf{s}, \mathbf{a})$**：原始的奖励函数。
+- **$u(\mathbf{s}, \mathbf{a})$**：**不确定性（Uncertainty）**。这代表模型对自己预测的置信度。如果当前状态和动作偏离了训练数据（即模型没见过），不确定性 $u$ 就会很大。
+- **$\lambda$**：惩罚系数。
 - **直观理解：** 算法通过人为降低那些“模型不确定区域”的奖励值，迫使智能体待在模型确信的区域（也就是接近真实数据分布的区域），从而避免由于模型误差导致的策略失效。
 
 - **红色圆圈：** 代表模型推演进入了未知区域（High Uncertainty）。在这种地方，MOPO 算法会通过上述公式给予高额惩罚，告诉智能体“这里很危险，不要往这里走”。
