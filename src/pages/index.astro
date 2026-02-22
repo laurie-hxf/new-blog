@@ -1,23 +1,20 @@
 ---
 import { Image } from 'astro:assets'
 
-import { Quote } from 'astro-pure/advanced'
+import { Comment, Quote } from 'astro-pure/advanced'
 import { PostPreview } from 'astro-pure/components/pages'
 import { getBlogCollection, sortMDByDate } from 'astro-pure/server'
-import { Button, Card, Icon, Label } from 'astro-pure/user'
+import { Button, Card, Collapse, Icon, Label, Spoiler, Timeline } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import ProjectCard from '@/components/home/ProjectCard.astro'
 import Section from '@/components/home/Section.astro'
 import SkillLayout from '@/components/home/SkillLayout.astro'
 import avatar from '@/assets/avatar.png'
 import config from '@/site-config'
-import { Collapse, Spoiler, Timeline } from 'astro-pure/user'
-import { Comment } from 'astro-pure/advanced'
 
-const Programming = ['Java', 'Python', 'C','C++', 'Shell','Pytorch']
-const Tools = ['Vim', 'Markdown', 'LaTeX','Git','Linux']
+const Programming = ['Java', 'Python', 'C', 'C++', 'Shell', 'Pytorch']
+const Tools = ['Vim', 'Markdown', 'LaTeX', 'Git', 'Linux']
 const languages = ['Chinese', 'English']
-
 
 const MAX_POSTS = 10
 const allPosts = await getBlogCollection()
@@ -40,19 +37,15 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
           <Label title='China'>
             <Icon name='location' class='size-5' slot='icon' />
           </Label>
-          <Label
-            title='Github'
-            as='a'
-            href='https://github.com/laurie-hxf'
-            target='_blank'
-          >
+          <Label title='Github' as='a' href='https://github.com/laurie-hxf' target='_blank'>
             <Icon name='github' class='size-5' slot='icon' />
           </Label>
         </div>
       </div>
 
       {/* Get template */}
-      {/*<a
+      {
+        /*<a
         href='https://github.com/cworld1/astro-theme-pure'
         target='_blank'
         class='flex flex-row items-center gap-x-3 rounded-full border bg-background px-4 py-2 text-sm shadow-sm transition-shadow hover:shadow-md'
@@ -64,102 +57,112 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
           <span class='size-2 rounded-full bg-green-400'></span>
         </span>
         <p class='font-medium text-muted-foreground'>天气</p>
-      </a>*/}
+      </a>*/
+      }
 
       <button
-    id="weatherBtn"
-    class='flex flex-row items-center gap-x-3 rounded-full border bg-background px-4 py-2 text-sm shadow-sm transition-shadow hover:shadow-md'
-  >
-    <span class='relative flex items-center justify-center'>
-      <span class='absolute size-2 animate-ping rounded-full border border-green-400 bg-green-400 opacity-75'></span>
-      <span class='size-2 rounded-full bg-green-400'></span>
-    </span>
-    <p class='font-medium text-muted-foreground'>weather</p>
-  </button>
-  <div id="weatherInfo" class="mt-4 p-4 rounded-lg bg-gray-100 hidden">
-    <!-- 天气信息将在这里显示 -->
-  </div>
-<script>
-// 先获取元素并立即进行空值检查
-const weatherBtn = document.getElementById('weatherBtn');
-const weatherInfo = document.getElementById('weatherInfo');
+        id='weatherBtn'
+        class='flex flex-row items-center gap-x-3 rounded-full border bg-background px-4 py-2 text-sm shadow-sm transition-shadow hover:shadow-md'
+      >
+        <span class='relative flex items-center justify-center'>
+          <span
+            class='absolute size-2 animate-ping rounded-full border border-green-400 bg-green-400 opacity-75'
+          ></span>
+          <span class='size-2 rounded-full bg-green-400'></span>
+        </span>
+        <p class='font-medium text-muted-foreground'>weather</p>
+      </button>
+      <div id='weatherInfo' class='mt-4 p-4 rounded-lg bg-gray-100 hidden'>
+        <!-- 天气信息将在这里显示 -->
+      </div>
+      <script>
+        // 先获取元素并立即进行空值检查
+        const weatherBtn = document.getElementById('weatherBtn')
+        const weatherInfo = document.getElementById('weatherInfo')
 
-// 提前退出机制
-if (!weatherBtn || !weatherInfo) {
-  console.error('找不到必要的 DOM 元素');
-} else {
-  weatherBtn.addEventListener('click', async () => {
-    // 隐藏/显示逻辑增加安全判断
-    if (!weatherInfo.classList.contains('hidden')) {
-      weatherInfo.classList.add('hidden');
-      return;
-    }
+        // 提前退出机制
+        if (!weatherBtn || !weatherInfo) {
+          console.error('找不到必要的 DOM 元素')
+        } else {
+          weatherBtn.addEventListener('click', async () => {
+            // 隐藏/显示逻辑增加安全判断
+            if (!weatherInfo.classList.contains('hidden')) {
+              weatherInfo.classList.add('hidden')
+              return
+            }
 
-    try {
-      // 添加 GeolocationPosition 类型声明
-      const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-      });
+            try {
+              // 添加 GeolocationPosition 类型声明
+              const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject)
+              })
 
-      // 使用模板字符串前进行坐标存在性检查
-      if (!position?.coords) throw new Error('无法获取坐标');
-      
-      const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${
-        position.coords.latitude
-      }&longitude=${
-        position.coords.longitude
-      }&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code&timezone=auto`;
+              // 使用模板字符串前进行坐标存在性检查
+              if (!position?.coords) throw new Error('无法获取坐标')
 
-      const response = await fetch(apiUrl);
-      if (!response.ok) throw new Error('API 请求失败');
-      
-      const data = await response.json();
+              const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${
+                position.coords.latitude
+              }&longitude=${
+                position.coords.longitude
+              }&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code&timezone=auto`
 
-      // 使用类型安全的天气代码映射
-      const weatherCodes: Record<number, string> = {
-        0: '☀️ 晴天', 1: '⛅ 多云', 2: '🌤️ 局部晴', 3: '🌥️ 阴天',
-        45: '🌫️ 雾', 61: '🌧️ 小雨', 63: '🌧️ 中雨', 80: '⛈️ 雷阵雨'
-      };
+              const response = await fetch(apiUrl)
+              if (!response.ok) throw new Error('API 请求失败')
 
-      const weatherText = weatherCodes[data.current.weather_code] || '未知天气';
+              const data = await response.json()
 
-      // 安全操作 DOM
-      weatherInfo.innerHTML = `
+              // 使用类型安全的天气代码映射
+              const weatherCodes: Record<number, string> = {
+                0: '☀️ 晴天',
+                1: '⛅ 多云',
+                2: '🌤️ 局部晴',
+                3: '🌥️ 阴天',
+                45: '🌫️ 雾',
+                61: '🌧️ 小雨',
+                63: '🌧️ 中雨',
+                80: '⛈️ 雷阵雨'
+              }
+
+              const weatherText = weatherCodes[data.current.weather_code] || '未知天气'
+
+              // 安全操作 DOM
+              weatherInfo.innerHTML = `
         <h3 class="font-bold">当前位置天气</h3>
         <p>温度：${data.current.temperature_2m}°C</p>
         <p>体感：${data.current.apparent_temperature}°C</p>
         <p>天气：${weatherText}</p>
         <p>湿度：${data.current.relative_humidity_2m}%</p>
-      `;
-      
-      weatherInfo.classList.remove('hidden');
+      `
 
-    } catch (error) {
-      // 显示错误信息时再次检查元素存在性
-      if (weatherInfo) {
-        weatherInfo.innerHTML = '<p class="text-red-500">无法获取天气信息</p>';
-        weatherInfo.classList.remove('hidden');
-      }
-      console.error('天气获取失败:', error);
-    }
-  });
-}
-</script>
+              weatherInfo.classList.remove('hidden')
+            } catch (error) {
+              // 显示错误信息时再次检查元素存在性
+              if (weatherInfo) {
+                weatherInfo.innerHTML = '<p class="text-red-500">无法获取天气信息</p>'
+                weatherInfo.classList.remove('hidden')
+              }
+              console.error('天气获取失败:', error)
+            }
+          })
+        }
+      </script>
     </section>
 
     <div id='content' class='animate flex flex-col gap-y-10 md:w-4/5 lg:w-5/6'>
       <Section title='About'>
         <p class='text-muted-foreground'>Debugger / CSer</p>
         <p class='text-muted-foreground'>
-          Hi there! 👋 I am laurie, a synonym (third-year) undergraduate student at the School of CS, Sustech University, majoring in Computer Science.
+          Hi there! 👋 I am laurie, a synonym (third-year) undergraduate student at the School of
+          CS, Sustech University, majoring in Computer Science.
         </p>
         <p class='text-muted-foreground'>
-        I am interested in ai. I want to build digital person just like the film Swan Song.
+          I am interested in ai. I want to build digital person just like the film Swan Song.
         </p>
         <p class='text-muted-foreground'>
-        I'm currently researching in the field of Medical Imaging, supervised by <a href="https://faculty.sustech.edu.cn/?tagid=liuj&iscss=1&snapid=1&orderby=date&go=2" target="_blank">Prof. Liu Jiang</a> 
-        in the  
-        <a href="https://imed-lab.com/sy" target="_blank">IMED lab</a> of SUSTech University.
+          I'm currently researching in the field of Robotics, and a research intern at <a
+            href='https://pku-epic.github.io/'
+            target='_blank'>Embodied Perception and InteraCtion (EPIC) Lab</a
+          >/ <a href='https://www.galbot.com/' target='_blank'>Galbot</a>, Peking University.
         </p>
         <Button title='More about me' class='w-fit self-end' href='/about' style='ahead' />
       </Section>
@@ -205,8 +208,10 @@ if (!weatherBtn || !weatherInfo) {
         altText='Lorem, ipsum dolor sit'
         imageClass='h-12 w-auto md:-start-16'
       />
-    </Section> */}
-      {/*<Section title='Education'>
+    </Section> */
+      }
+      {
+        /*<Section title='Education'>
         <Card
           as='a'
           heading='南方科技大学'
@@ -240,40 +245,54 @@ if (!weatherBtn || !weatherInfo) {
         </ul> 
           }
         </Card>
-      </Section>*/}
-        <section class="animate flex flex-col gap-y-5 md:flex-row md:gap-y-0">
-        <div class="text-xl font-semibold md:min-w-36">
-        <h2>Education</h2>
+      </Section>*/
+      }
+      <section class='animate flex flex-col gap-y-5 md:flex-row md:gap-y-0'>
+        <div class='text-xl font-semibold md:min-w-36'>
+          <h2>Education</h2>
         </div>
-        <div class="flex flex-1 flex-col gap-y-3">
-                        <a class="not-prose block relative rounded-2xl border border-border bg-primary-foreground px-5 py-3 transition-all hover:border-foreground/25 hover:shadow-sm overflow-hidden" href="https://www.sustech.edu.cn">
-                            <div class="flex flex-col gap-y-1.5">
-                                <div class="flex flex-col gap-y-0.5">
-                                    <h2 class="text-lg font-medium">南方科技大学</h2>
-                                    <p class="text-muted-foreground">Full-time Undergraduate Student</p>
-                                    <p class="text-muted-foreground">August 2023 - Present</p>
-                                    <li data-astro-cid-j7pv25f6>Major: Computer Science</li>
-                                    <li data-astro-cid-j7pv25f6>GPA: <Spoiler>不告诉你</Spoiler></li>
-                                </div>
-                                <img class="absolute end-0 z-0 m-0 -my-10 translate-x-[-60px] scale-150 object-cover opacity-20" src="/images/sustech.png">
-                            </div>
-                        </a>
-                        <a class="not-prose block relative rounded-2xl border border-border bg-primary-foreground px-5 py-3 transition-all hover:border-foreground/25 hover:shadow-sm overflow-hidden" href="https://www.shimen.org">
-                            <div class="flex flex-col gap-y-1.5">
-                                <div class="flex flex-col gap-y-0.5">
-                                    <h2 class="text-lg font-medium">石门中学</h2>
-                                    <p class="text-muted-foreground">Full-time High School Student</p>
-                                    <p class="text-muted-foreground">August 2020 - July 2023</p>
-                                    <li data-astro-cid-j7pv25f6>Major: Physical Chemistry Biology</li>
-                                    <li data-astro-cid-j7pv25f6>Location: Guangdong, Foshan</li>
-                                </div>
-                                <img class="absolute end-0 z-0 m-0 -my-10 translate-x-[-60px] scale-150 object-cover opacity-20" src="/images/shimen.jpeg">
-                            </div>
-                        </a>
-                    </div>
-        </section>
+        <div class='flex flex-1 flex-col gap-y-3'>
+          <a
+            class='not-prose block relative rounded-2xl border border-border bg-primary-foreground px-5 py-3 transition-all hover:border-foreground/25 hover:shadow-sm overflow-hidden'
+            href='https://www.sustech.edu.cn'
+          >
+            <div class='flex flex-col gap-y-1.5'>
+              <div class='flex flex-col gap-y-0.5'>
+                <h2 class='text-lg font-medium'>南方科技大学</h2>
+                <p class='text-muted-foreground'>Full-time Undergraduate Student</p>
+                <p class='text-muted-foreground'>August 2023 - Present</p>
+                <li data-astro-cid-j7pv25f6>Major: Computer Science</li>
+                <li data-astro-cid-j7pv25f6>GPA: <Spoiler>不告诉你</Spoiler></li>
+              </div>
+              <img
+                class='absolute end-0 z-0 m-0 -my-10 translate-x-[-60px] scale-150 object-cover opacity-20'
+                src='/images/sustech.png'
+              />
+            </div>
+          </a>
+          <a
+            class='not-prose block relative rounded-2xl border border-border bg-primary-foreground px-5 py-3 transition-all hover:border-foreground/25 hover:shadow-sm overflow-hidden'
+            href='https://www.shimen.org'
+          >
+            <div class='flex flex-col gap-y-1.5'>
+              <div class='flex flex-col gap-y-0.5'>
+                <h2 class='text-lg font-medium'>石门中学</h2>
+                <p class='text-muted-foreground'>Full-time High School Student</p>
+                <p class='text-muted-foreground'>August 2020 - July 2023</p>
+                <li data-astro-cid-j7pv25f6>Major: Physical Chemistry Biology</li>
+                <li data-astro-cid-j7pv25f6>Location: Guangdong, Foshan</li>
+              </div>
+              <img
+                class='absolute end-0 z-0 m-0 -my-10 translate-x-[-60px] scale-150 object-cover opacity-20'
+                src='/images/shimen.jpeg'
+              />
+            </div>
+          </a>
+        </div>
+      </section>
 
-      {/*<Section title='Website List'>
+      {
+        /*<Section title='Website List'>
         <div class='grid grid-cols-1 gap-3 sm:grid-cols-2'>
           <ProjectCard
             href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
@@ -310,7 +329,8 @@ if (!weatherBtn || !weatherInfo) {
           date='July 2024'
           href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'
         />
-      </Section>*/}
+      </Section>*/
+      }
 
       <Section title='Skills'>
         <SkillLayout title='languages' skills={languages} />
@@ -319,12 +339,16 @@ if (!weatherBtn || !weatherInfo) {
       </Section>
     </div>
 
-    <div id="clustrmaps-container">
-      <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=557&t=tt&d=lnwXW1hfAPPDPXAuufWSP3RvAEc74IddgN2Cg7etenM&co=a1d2f5'></script>
-  </div>
-  
-  <style>
-    #clustrmaps-container {
+    <div id='clustrmaps-container'>
+      <script
+        type='text/javascript'
+        id='clustrmaps'
+        src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=557&t=tt&d=lnwXW1hfAPPDPXAuufWSP3RvAEc74IddgN2Cg7etenM&co=a1d2f5'
+      ></script>
+    </div>
+
+    <style>
+      #clustrmaps-container {
         width: 90%; /* 宽度为屏幕的90%，在小屏幕上更合适 */
         max-width: 600px; /* 最大不超过600px，避免太宽 */
         aspect-ratio: 2 / 1; /* 保持宽高比为2:1 */
@@ -337,23 +361,22 @@ if (!weatherBtn || !weatherInfo) {
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         padding: 10px;
         margin: 30px auto; /* 上下外边距，水平居中 */
-    }
+      }
     </style>
 
-  
-
-    <div class="mt-16 flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md">
-     <span class='relative flex items-center justify-center'>
-          <span
-            class='absolute size-2 animate-ping rounded-full border border-green-400 bg-green-400 opacity-75'
-          ></span>
-          <span class='size-2 rounded-full bg-green-400'></span>
-        </span>
-        <p class='font-medium text-muted-foreground'>放松与宽心</p>
+    <div
+      class='mt-16 flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md'
+    >
+      <span class='relative flex items-center justify-center'>
+        <span
+          class='absolute size-2 animate-ping rounded-full border border-green-400 bg-green-400 opacity-75'
+        ></span>
+        <span class='size-2 rounded-full bg-green-400'></span>
+      </span>
+      <p class='font-medium text-muted-foreground'>放松与宽心</p>
     </div>
-    <div style="margin: 40px 0;"></div>
-    
+    <div style='margin: 40px 0;'></div>
   </main>
-  
+
   <Comment />
 </PageLayout>
