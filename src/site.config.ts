@@ -65,7 +65,7 @@ export const theme: ThemeUserConfig = {
       links: [
     {
       title: '粤ICP备2025369833号',
-      link: 'https://google.com',
+      link: 'https://beian.miit.gov.cn',
       style: 'secondary',    
       pos: 1               
     }
